@@ -44,7 +44,7 @@ def board_init():
 def printGameBoard(gameBoard):
 
     gameBoardStr = ""
-    gameBoardStr += "  %s\n" % " ".join(map(str, range(1,9)))
+    gameBoardStr += "  %s\n" % " ".join(map(str, ['a','b','c','d','e','f','g','h']))
 
     # iterates through each row of numbers. range is a just a list of numbers that get iterated through.
     # In our case, we want 1 through 9 rows to instantiate
@@ -160,6 +160,13 @@ class IllegalMoves(Exception):
 def legalMoves(player, gameBoard):
     return [square for square in squares() if isLegal(square, player, gameBoard)]
 
+def legalMovesLength(player, gameBoard):
+    length = 0
+    for square in squares():
+        if isLegal(square, player, gameBoard):
+            length += 1
+    return length
+            
 
 # returns if the player can make any move
 def anyLegalMove(player, gameBoard):

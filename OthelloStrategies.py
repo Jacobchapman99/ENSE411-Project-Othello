@@ -14,13 +14,14 @@ heuristic = [
     0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
 ]
 
+
 ##################
 # 1: Random Search
 ##################
 
 # Random Strategy. Easiest form where moves are picked at random
-def getRandom(player, board):
-    return random.choice(Othello.legalMoves(player, board))
+def getRandom(player, gameBoard):
+    return random.choice(Othello.legalMoves(player, gameBoard))
 
 
 ######################################################################
@@ -29,6 +30,43 @@ def getRandom(player, board):
 #              The branching factor for Othello is 10, and evaluates
 #              many search trees that can be ignored.
 ######################################################################
+
+# base Heuristic 
+def baseHeuristic():
+
+    heuristic = [
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+    0, 120, -20,  20,   5,   5,  20, -20, 120,   0,
+    0, -20, -40,  -5,  -5,  -5,  -5, -40, -20,   0,
+    0,  20,  -5,  15,   3,   3,  15,  -5,  20,   0,
+    0,   5,  -5,   3,   3,   3,   3,  -5,   5,   0,
+    0,   5,  -5,   3,   3,   3,   3,  -5,   5,   0,
+    0,  20,  -5,  15,   3,   3,  15,  -5,  20,   0,
+    0, -20, -40,  -5,  -5,  -5,  -5, -40, -20,   0,
+    0, 120, -20,  20,   5,   5,  20, -20, 120,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+    ]
+    return heuristic
+    
+# Coin Parity heuristic (analagous to greedy search)
+def coinParityHeuristic(player, gameBoard):
+
+    blackCoins = 0
+    whiteCoins = 0
+
+    valueX = 'x'
+    valueO = 'o'
+    for square in gameBoard:
+        if square == valueX:
+            blackCoins += 1
+        if square == valueO:
+            whiteCoins += 1
+        
+    coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins))
+    
+    return coinParity
+
+
 
 # find the best legal move for the player by searching to a specific depth
 # returns a tuple (move, minimum score)
@@ -57,17 +95,20 @@ def minimax(player, gameBoard, depth, evaluate):
     # return the best possible move by maximizing the value of the resulting boards
     return max((value(Othello.makeMove(move, player, list(gameBoard))), move) for move in moves)
 
-maxValue = sum(map(abs, heuristic))
+
+maxValue = sum(map(abs, baseHeuristic()))
 minValue = -maxValue
+ 
 
 # End game situation where the final score is returned
 def finalValue(player, gameBoard):
 
     score = Othello.score(player, gameBoard)
+
     if score < 0:
-        return minValue
-    elif score > 0:
         return maxValue
+    elif score > 0:
+        return minValue
     return score
 
 # strategy function that uses the minimax function. Called in main()

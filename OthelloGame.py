@@ -52,11 +52,13 @@ def getPlayers():
     
     optionsList = {"human": humanPlayer,
                    "random": OthelloStrategies.getRandom,
-                   "minimax": OthelloStrategies.minimaxSearcher(2, Othello.score) # depth of 3. any deeper will cause too high of runtime for it to run
+                   "minimax": OthelloStrategies.minimaxSearcher(3, Othello.score) # depth of 3. any deeper will cause too high of runtime for it to run
                    }
     
     # Instantiates both players. They could both be AI's, or both humans, or one human and one AI
-    black = getOptions("BLACK: choose an option", optionsList)
+    # Black = x
+    # White = o
+    black = getOptions("BLACK: choose an option", optionsList) 
     white = getOptions("WHITE: choose an option", optionsList)
 
     return black, white
