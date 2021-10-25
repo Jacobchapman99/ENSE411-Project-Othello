@@ -52,7 +52,8 @@ def getPlayers():
     
     optionsList = {"human": humanPlayer,
                    "random": OthelloStrategies.getRandom,
-                   "minimax": OthelloStrategies.minimaxSearcher(3, Othello.score) # depth of 3. any deeper will cause too high of runtime for it to run
+                   "minimax": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.coinParityHeuristic), # depth of 3. any deeper will cause too high of runtime for it to run
+                   "alpha-beta": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.coinParityHeuristic)
                    }
     
     # Instantiates both players. They could both be AI's, or both humans, or one human and one AI

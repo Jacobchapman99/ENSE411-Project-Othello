@@ -228,18 +228,17 @@ def getMove(strategy, player, gameBoard):
 
 # collects each players score (number of player pieces - number of opponent pices)
 def score(player, gameBoard):
-
     myScore, theirScore = 0, 0
-
     opponent = getOpponent(player)
 
     for square in squares():
         piece = gameBoard[square]
-        
         if piece == player:
             myScore += 1
         elif piece == opponent:
             theirScore += 1
     
     return myScore - theirScore
+
+
 
