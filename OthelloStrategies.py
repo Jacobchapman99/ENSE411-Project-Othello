@@ -1,4 +1,5 @@
 import Othello
+import OthelloGame
 import random
 
 
@@ -47,10 +48,33 @@ def coinParityHeuristic(player, gameBoard):
         if square == valueO:
             whiteCoins += 1
         
-    coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins))
+    if player == black:
+        coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins))
+    
+    else:
+        coinParity = 100 * ((whiteCoins - blackCoins) / (blackCoins + whiteCoins))
+        
     return coinParity
 
 
+# A heuristic based on the difference in legal moves between the max player and min player
+def mobilityHeuristic(player, gameBoard):
+    playerMobility = 0
+    opponentMobility = 0
+    
+    opponent = white if player == black else black
+    
+    for square in gameBoard:
+        if OthelloGame.checkMove(square, player, gameBoard):
+            playerMobility += 1
+        elif OthelloGame.checkMove(square, opponent, gameBoard):
+            opponentMobility += 1
+    
+    if (playerMobility + opponentMobility) != 0:
+        return 100 * (playerMobility - opponentMobility) / (playerMobility + opponentMobility)
+    
+    else:
+        return 0
 
 # find the best legal move for the player by searching to a specific depth
 # returns a tuple (move, minimum score)
