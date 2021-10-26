@@ -75,6 +75,9 @@ def mobilityHeuristic(player, gameBoard):
     
     else:
         return 0
+ 
+# Could possibly extend with with POTENTIAL MOBILITY (i.e. moves that may become legal after the opponent's next move)
+# Maybe a refined breadth-first search could be applicable here?
 
 # find the best legal move for the player by searching to a specific depth
 # returns a tuple (move, minimum score)
@@ -134,7 +137,7 @@ def alphaBeta(player, gameBoard, alpha, beta, depth, evaluate):
     
     # similar to minimax
     # -alpha : the best score for us, therefore the worst score for opponent.
-    # -beta : the worst score us us, therefore the best score for opponent.
+    # -beta : the worst score for us, therefore the best score for opponent.
     def value(gameBoard, alpha, beta):
         return -alphaBeta(Othello.getOpponent(player), gameBoard, -alpha, -beta, depth - 1, evaluate)[0]
 
@@ -165,10 +168,17 @@ def alphaBetaSearcher(depth, evaluate):
         return alphaBeta(player, gameBoard, minValue, maxValue, depth, evaluate)[1]
     return strategy
 
-    
+######################  
+# 4: Expectimax Search
+######################
 
+def expectimax(player, gameBoard, depth, evaluate): # Needs to be implemented
+    return 0
 
-
+def expectimaxSearcher(depth, evaluate):
+    def strategy(player, gameBoard):
+        return expectimax(player, gameBoard, depth, evaluate)
+    return strategy
 
 
     
