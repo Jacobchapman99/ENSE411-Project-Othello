@@ -77,6 +77,10 @@ def mobilityHeuristic(player, gameBoard):
     
     else:
         return 0
+
+# A heuristic that combines coin parity and mobility
+def intermediateHeuristic(player, gameBoard):
+    return coinParityHeuristic(player, gameBoard) + mobilityHeuristic(player, gameBoard)
  
 # Could possibly extend with with POTENTIAL MOBILITY (i.e. moves that may become legal after the opponent's next move)
 # Maybe a refined breadth-first search could be applicable here?
