@@ -48,11 +48,7 @@ def coinParityHeuristic(player, gameBoard):
         if square == valueO:
             whiteCoins += 1
         
-    if player == black:
-        coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins))
-    
-    else:
-        coinParity = 100 * ((whiteCoins - blackCoins) / (blackCoins + whiteCoins))
+    coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins)) if player == black else 100 * ((whiteCoins - blackCoins) / (blackCoins + whiteCoins))
         
     return coinParity
 
@@ -179,8 +175,3 @@ def expectimaxSearcher(depth, evaluate):
     def strategy(player, gameBoard):
         return expectimax(player, gameBoard, depth, evaluate)
     return strategy
-
-
-    
-
-
