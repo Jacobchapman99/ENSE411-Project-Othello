@@ -47,8 +47,14 @@ def coinParityHeuristic(player, gameBoard):
             blackCoins += 1
         if square == valueO:
             whiteCoins += 1
-        
-    coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins)) if player == black else 100 * ((whiteCoins - blackCoins) / (blackCoins + whiteCoins))
+
+    coinParity = 0
+
+    if player == "Black":
+        coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins))
+
+    else:
+        coinParity = 100 * ((whiteCoins - blackCoins) / (blackCoins + whiteCoins))
         
     return coinParity
 
@@ -58,7 +64,7 @@ def mobilityHeuristic(player, gameBoard):
     playerMobility = 0
     opponentMobility = 0
     
-    opponent = white if player == black else black
+    opponent = "White" if player == "Black" else "Black"
     
     for square in gameBoard:
         if OthelloGame.checkMove(square, player, gameBoard):
@@ -129,7 +135,7 @@ def minimaxSearcher(depth, evaluate):
 def alphaBeta(player, gameBoard, alpha, beta, depth, evaluate):
 
     if depth == 0:
-        return evaluate(player, gameBoard)
+        return (evaluate(player, gameBoard), None)
     
     # similar to minimax
     # -alpha : the best score for us, therefore the worst score for opponent.
@@ -141,8 +147,8 @@ def alphaBeta(player, gameBoard, alpha, beta, depth, evaluate):
     anylegalMove = Othello.anyLegalMove(Othello.getOpponent(player), gameBoard)
     if not moves:
         if not anylegalMove:
-            return finalValue(player, gameBoard)
-        return value(gameBoard, alpha, beta)
+            return (finalValue(player, gameBoard), None)
+        return (value(gameBoard, alpha, beta), None)
     
     optimalMove = moves[0]
     for move in moves:
@@ -157,7 +163,7 @@ def alphaBeta(player, gameBoard, alpha, beta, depth, evaluate):
             alpha = v
             optimalMove = move
 
-    return alpha, optimalMove
+    return (alpha, optimalMove)
 
 def alphaBetaSearcher(depth, evaluate):
     def strategy(player, gameBoard):
