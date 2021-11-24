@@ -85,6 +85,16 @@ def intermediateHeuristic(player, gameBoard):
 # Could possibly extend with with POTENTIAL MOBILITY (i.e. moves that may become legal after the opponent's next move)
 # Maybe a refined breadth-first search could be applicable here?
 
+
+# Corner heuristic 
+
+
+# Stability heuristic
+    
+
+
+
+
 # find the best legal move for the player by searching to a specific depth
 # returns a tuple (move, minimum score)
 def minimax(player, gameBoard, depth, evaluate):
