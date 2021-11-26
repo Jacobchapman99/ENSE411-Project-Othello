@@ -21,16 +21,17 @@ northEast, southEast, southWest, northWest = -9, 11, 9, -11
 directions = (north, northEast, east, southEast, south, southWest, west, northWest)
 
 
-# Defines a list of all the available squares on the game board
-def squares():
-    return [i for i in range(11, 89) if 1 <= (i % 10) <= 8]
+# static-ordering strategy
+# deines a list of all available squares, but sorted. Therefore the corners will be considered first always
+def sortedSquares():
+    return sorted([i for i in range(11, 89) if 1 <= (i % 10) <= 8])
 
 def board_init():
 
     gameBoard = [outerTile] * 100
 
     # instantiate board to empty spaces
-    for square in squares():
+    for square in sortedSquares():
         gameBoard[square] = empty
     
     # start with players in the center of the game board
@@ -61,10 +62,12 @@ def printGameBoard(gameBoard):
 #
 #################################
 
+
 # Checks if the move being played is on the board
-def moveIsValid(move):
+def moveIsValidRefined(move):
     # returns whether or not the player makes a move in a proper location (sqaure)
-    return isinstance(move, int) and move in squares()
+    return isinstance(move, int) and move in sortedSquares()
+
 
 # Gets the opponent players piece
 def getOpponent(player):
@@ -152,23 +155,21 @@ class IllegalMoves(Exception):
     def __str__(self):
         return '%s cannot move to that location %d' % (players[self.player], self.move)
 
+def legalMovesRefined(player, gameBoard):
+    return [square for square in sortedSquares() if isLegal(square, player, gameBoard)]
 
-# returns a list of all the legal moves available
-def legalMoves(player, gameBoard):
-    return [square for square in squares() if isLegal(square, player, gameBoard)]
-
-def legalMovesLength(player, gameBoard):
+def legalMovesLengthRefined(player, gameBoard):
     length = 0
-    for square in squares():
+    for square in sortedSquares():
         if isLegal(square, player, gameBoard):
             length += 1
     return length
             
-            
+
 # returns if the player can make any move
-def anyLegalMove(player, gameBoard):
-    return any(isLegal(square, player, gameBoard) for square in squares())
-    
+def anyLegalMoveRefined(player, gameBoard):
+    return any(isLegal(square, player, gameBoard) for square in sortedSquares())
+
 
 ##########################################################
 # 
@@ -191,9 +192,9 @@ def playGame(whitePiece, blackPiece):
     strategy = lambda who : blackPiece if who == black else whitePiece
 
     while player is not None:
-        move = getMove(strategy(player), player, gameBoard)
+        move = getMoveRefined(strategy(player), player, gameBoard)
         makeMove(move, player, gameBoard)
-        player = nextPlayer(gameBoard, player)
+        player = nextPlayerRefined(gameBoard, player)
 
     return gameBoard, score(black, gameBoard)
 
@@ -204,36 +205,36 @@ def playGameRefined(whitePiece, blackPiece):
 
     # lamda in python is just a command line function -> lambda args : function code
     strategy = lambda who : blackPiece if who == black else whitePiece
-
+    
     while player is not None:
-        move = getMove(strategy(player), player, gameBoard)
+        move = getMoveRefined(strategy(player), player, gameBoard)
         makeMove(move, player, gameBoard)
-        player = nextPlayer(gameBoard, player)
+        player = nextPlayerRefined(gameBoard, player)
 
     return gameBoard, score(black, gameBoard)
 
 
 # gets the next player to make a move. Returns none if no legal moves are available
-def nextPlayer(gameBoard, prevPlayer):
+def nextPlayerRefined(gameBoard, prevPlayer):
 
     opponent = getOpponent(prevPlayer)
 
-    if anyLegalMove(opponent, gameBoard):
+    if anyLegalMoveRefined(opponent, gameBoard):
         return opponent
-    elif anyLegalMove(prevPlayer, gameBoard):
+    elif anyLegalMoveRefined(prevPlayer, gameBoard):
         return prevPlayer
 
     return None
 
 
 # calls the strategy function to obtain a move
-def getMove(strategy, player, gameBoard):
+def getMoveRefined(strategy, player, gameBoard):
 
     copy = list(gameBoard) # get a copy of the board
 
     move = strategy(player, copy)
 
-    if not moveIsValid(move) or not isLegal(move, player, gameBoard):
+    if not moveIsValidRefined(move) or not isLegal(move, player, gameBoard):
         raise IllegalMoves(player, move, copy)
     
     return move
@@ -243,7 +244,7 @@ def score(player, gameBoard):
     myScore, theirScore = 0, 0
     opponent = getOpponent(player)
 
-    for square in squares():
+    for square in sortedSquares():
         piece = gameBoard[square]
         if piece == player:
             myScore += 1

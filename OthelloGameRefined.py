@@ -1,9 +1,9 @@
-import Othello
-import OthelloStrategies
+import OthelloRefined
+import OthelloStrategiesRefined
 
 def main():
     black, white = getPlayers()
-    gameBoard, score = Othello.playGame(black, white)
+    gameBoard, score = OthelloRefined.playGame(black, white)
 
     print("final score: ", score)
     if score > 0:
@@ -11,17 +11,17 @@ def main():
     else:
         print("White wins")
         
-    print(Othello.printGameBoard(gameBoard))
+    print(OthelloRefined.printGameBoard(gameBoard))
 
 
 # Checks the players move to see if it is a legal one
 def checkMove(move, player, gameBoard):
-    return Othello.moveIsValid(move) and Othello.isLegal(move, player, gameBoard)
+    return OthelloRefined.moveIsValidRefined(move) and OthelloRefined.isLegal(move, player, gameBoard)
 
 
 # Defines the human user
 def humanPlayer(player, board):
-    print(Othello.printGameBoard(board))
+    print(OthelloRefined.printGameBoard(board))
     print("Your move")
 
     while(True):
@@ -53,17 +53,17 @@ def getPlayers():
     optionsList = {"human": humanPlayer, 
                    
                    # Random AI
-                   "random": OthelloStrategies.getRandom,
+                   "random": OthelloStrategiesRefined.getRandom,
                    
                    # MiniMax AI
-                   "minimax-beginner": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.coinParityHeuristic),
-                   "minimax-amateur": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.mobilityHeuristic), # depth of 3 = max. any deeper will cause too high of runtime for it to run
-                   "minimax-intermediate": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.intermediateHeuristic),
+                   "minimax-beginner": OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.coinParityHeuristic),
+                   "minimax-amateur": OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.mobilityHeuristic), # depth of 3 = max. any deeper will cause too high of runtime for it to run
+                   "minimax-intermediate": OthelloStrategiesRefined.minimaxSearcher(3, OthelloStrategiesRefined.intermediateHeuristic),
                    
                    # Alpha-Beta AI
-                   "alpha-beta-beginner": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.coinParityHeuristic),
-                   "alpha-beta-amateur": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.mobilityHeuristic),
-                   "alpha-beta-intermediate": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.intermediateHeuristic)
+                   "alpha-beta-beginner": OthelloStrategiesRefined.alphaBetaSearcher(2, OthelloStrategiesRefined.coinParityHeuristic),
+                   "alpha-beta-amateur": OthelloStrategiesRefined.alphaBetaSearcher(2, OthelloStrategiesRefined.mobilityHeuristic),
+                   "alpha-beta-intermediate": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.intermediateHeuristic)
                    
                    # Expectimax
                    }

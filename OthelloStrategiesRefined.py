@@ -1,4 +1,4 @@
-import Othello
+import OthelloRefined
 import OthelloGame
 import random
 
@@ -9,7 +9,7 @@ import random
 
 # Random Strategy. Easiest form where moves are picked at random
 def getRandom(player, gameBoard):
-    return random.choice(Othello.legalMoves(player, gameBoard))
+    return random.choice(OthelloRefined.legalMovesRefined(player, gameBoard))
 
 
 ######################################################################
@@ -101,14 +101,14 @@ def minimax(player, gameBoard, depth, evaluate):
 
     # define the value of the gameBoard to be opposite of its value for our opponent. recursively goes through minimax for the opponent
     def value(gameBoard):
-        return -minimax(Othello.getOpponent(player), gameBoard, depth - 1, evaluate)[0]
+        return -minimax(OthelloRefined.getOpponent(player), gameBoard, depth - 1, evaluate)[0]
 
     # if the depth is 0, dont look at any more potential moves, simply determine the value of the gameBoard for this player
     if depth == 0:
         return evaluate(player, gameBoard), None
 
-    moves = Othello.legalMoves(player, gameBoard) 
-    legalmoves = Othello.anyLegalMove(Othello.getOpponent(player), gameBoard)
+    moves = OthelloRefined.legalMovesRefined(player, gameBoard) 
+    legalmoves = OthelloRefined.anyLegalMoveRefined(OthelloRefined.getOpponent(player), gameBoard)
 
     # if player has no legal moves, then the game is over, so return the final score. Or there has to be a pass of a turn, so determine score of this gameBoard
     if not moves: 
@@ -117,7 +117,7 @@ def minimax(player, gameBoard, depth, evaluate):
         return value(gameBoard), None 
     
     # return the best possible move by maximizing the value of the resulting boards
-    return max((value(Othello.makeMove(move, player, list(gameBoard))), move) for move in moves)
+    return max((value(OthelloRefined.makeMove(move, player, list(gameBoard))), move) for move in moves)
 
 
 maxValue = sum(map(abs, baseHeuristic()))
@@ -126,7 +126,7 @@ minValue = -maxValue
 
 # End game situation where the final score is returned
 def finalValue(player, gameBoard):
-    score = Othello.score(player, gameBoard)
+    score = OthelloRefined.score(player, gameBoard)
     if score < 0:
         return maxValue
     elif score > 0:
@@ -155,10 +155,11 @@ def alphaBeta(player, gameBoard, alpha, beta, depth, evaluate):
     # -alpha : the best score for us, therefore the worst score for opponent.
     # -beta : the worst score for us, therefore the best score for opponent.
     def value(gameBoard, alpha, beta):
-        return -alphaBeta(Othello.getOpponent(player), gameBoard, -alpha, -beta, depth - 1, evaluate)[0]
+        return -alphaBeta(OthelloRefined.getOpponent(player), gameBoard, -alpha, -beta, depth - 1, evaluate)[0]
 
-    moves = Othello.legalMoves(player, gameBoard)
-    anylegalMove = Othello.anyLegalMove(Othello.getOpponent(player), gameBoard)
+    moves = OthelloRefined.legalMovesRefined(player, gameBoard)
+    anylegalMove = OthelloRefined.anyLegalMoveRefined(OthelloRefined.getOpponent(player), gameBoard)
+    
     if not moves:
         if not anylegalMove:
             return (finalValue(player, gameBoard), None)
@@ -166,12 +167,11 @@ def alphaBeta(player, gameBoard, alpha, beta, depth, evaluate):
     
     optimalMove = moves[0]
     for move in moves:
-        
         # if a legal move is possible that makes a better score than beta, then opponent will avoid branching here (quit looking)
         if alpha >= beta:
             break
         
-        v = value(Othello.makeMove(move, player, list(gameBoard)), alpha, beta)
+        v = value(OthelloRefined.makeMove(move, player, list(gameBoard)), alpha, beta)
 
         if v > alpha:
             alpha = v
@@ -185,12 +185,12 @@ def alphaBetaSearcher(depth, evaluate):
     return strategy
 
 
+
+
 ######################  
 # 4: Expectimax Search
 ######################
-
 def expectimax(player, gameBoard, depth, evaluate): # Needs to be implemented
-    
     return 0
 
 def expectimaxSearcher(depth, evaluate):
