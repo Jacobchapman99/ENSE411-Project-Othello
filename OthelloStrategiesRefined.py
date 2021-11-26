@@ -191,6 +191,8 @@ def alphaBetaSearcher(depth, evaluate):
 # 4: Expectimax Search
 ######################
 def expectimax(player, gameBoard, depth, evaluate): # Needs to be implemented
+    
+    
     return 0
 
 def expectimaxSearcher(depth, evaluate):

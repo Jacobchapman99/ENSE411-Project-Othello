@@ -26,10 +26,10 @@ directions = (north, northEast, east, southEast, south, southWest, west, northWe
 def sortedSquares():
     return sorted([i for i in range(11, 89) if 1 <= (i % 10) <= 8])
 
+
 def board_init():
-
     gameBoard = [outerTile] * 100
-
+    
     # instantiate board to empty spaces
     for square in sortedSquares():
         gameBoard[square] = empty
@@ -205,7 +205,7 @@ def playGameRefined(whitePiece, blackPiece):
 
     # lamda in python is just a command line function -> lambda args : function code
     strategy = lambda who : blackPiece if who == black else whitePiece
-    
+
     while player is not None:
         move = getMoveRefined(strategy(player), player, gameBoard)
         makeMove(move, player, gameBoard)

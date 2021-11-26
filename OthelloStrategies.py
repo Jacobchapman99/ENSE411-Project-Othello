@@ -123,16 +123,6 @@ def minimax(player, gameBoard, depth, evaluate):
 maxValue = sum(map(abs, baseHeuristic()))
 minValue = -maxValue
  
-
-# End game situation where the final score is returned
-def finalValue(player, gameBoard):
-    score = Othello.score(player, gameBoard)
-    if score < 0:
-        return maxValue
-    elif score > 0:
-        return minValue
-    return score
-
 # strategy function that uses the minimax function. Called in main()
 def minimaxSearcher(depth, evaluate):
     def strategy(player, gameBoard):
@@ -176,7 +166,7 @@ def alphaBeta(player, gameBoard, alpha, beta, depth, evaluate):
         if v > alpha:
             alpha = v
             optimalMove = move
-
+    
     return (alpha, optimalMove)
 
 def alphaBetaSearcher(depth, evaluate):
@@ -189,11 +179,46 @@ def alphaBetaSearcher(depth, evaluate):
 # 4: Expectimax Search
 ######################
 
+avgValue = 0
 def expectimax(player, gameBoard, depth, evaluate): # Needs to be implemented
+
+    # define the value of the gameBoard to be opposite of its value for our opponent. recursively goes through minimax for the opponent
+    def value(gameBoard):
+        return -minimax(Othello.getOpponent(player), gameBoard, depth - 1, evaluate)[0]
+
+    # if the depth is 0, dont look at any more potential moves, simply determine the value of the gameBoard for this player
+    if depth == 0:
+        return evaluate(player, gameBoard), None
     
-    return 0
+    moves = Othello.legalMoves(player, gameBoard) 
+    legalmoves = Othello.anyLegalMove(Othello.getOpponent(player), gameBoard)
+
+    # if player has no legal moves, then the game is over, so return the final score. Or there has to be a pass of a turn, so determine score of this gameBoard
+    if not moves: 
+        if not legalmoves: 
+            return finalValue(player, gameBoard), None
+        return value(gameBoard), None 
+    
+    # return average. DOESNT WORK 
+    return sum((value(Othello.makeMove(move, player, list(gameBoard))), move) for move in moves) / len(moves)
+
+maxValue = sum(map(abs, baseHeuristic()))
+minValue = -maxValue
+    
 
 def expectimaxSearcher(depth, evaluate):
     def strategy(player, gameBoard):
         return expectimax(player, gameBoard, depth, evaluate)
     return strategy
+
+
+
+
+# End game situation where the final score is returned
+def finalValue(player, gameBoard):
+    score = Othello.score(player, gameBoard)
+    if score < 0:
+        return maxValue
+    elif score > 0:
+        return minValue
+    return score

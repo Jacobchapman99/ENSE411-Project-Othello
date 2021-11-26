@@ -63,9 +63,10 @@ def getPlayers():
                    # Alpha-Beta AI
                    "alpha-beta-beginner": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.coinParityHeuristic),
                    "alpha-beta-amateur": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.mobilityHeuristic),
-                   "alpha-beta-intermediate": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.intermediateHeuristic)
+                   "alpha-beta-intermediate": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.intermediateHeuristic),
                    
                    # Expectimax
+                   "expectimax-beginner": OthelloStrategies.expectimaxSearcher(3, OthelloStrategies.coinParityHeuristic)
                    }
     
     # Instantiates both players. They could both be AI's, or both humans, or one human and one AI
