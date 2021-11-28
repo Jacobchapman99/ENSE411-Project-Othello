@@ -36,7 +36,6 @@ def coinParityHeuristic(player, gameBoard):
 
     if player == "Black":
         coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins))
-
     else:
         coinParity = 100 * ((whiteCoins - blackCoins) / (blackCoins + whiteCoins))
         
@@ -78,7 +77,6 @@ def intermediateHeuristic(player, gameBoard):
 # unstable coins: can be flanked next turn (i.e moves) 
 # semi-stable coins: can be flanked in the future, but not this turn
 def stabilityHeuristic(player, gameBoard):
-    
     playerMoves = OthelloRefined.legalMovesRefined(player, gameBoard) # unstable coins (given a -1 for each coin that can be flanked)
     opponentMoves = OthelloRefined.legalMovesRefined(OthelloRefined.getOpponent(player), gameBoard)
     playerPieces = 0

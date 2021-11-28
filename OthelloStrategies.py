@@ -25,17 +25,24 @@ def coinParityHeuristic(player, gameBoard):
     valueX = 'x'
     valueO = 'o'
 
-    for square in gameBoard:
-        if square == valueX:
+    #for square in gameBoard:
+        #if square == valueX:
+            #blackCoins += 1
+        #if square == valueO:
+            #whiteCoins += 1
+            
+    for square in Othello.squares():
+        piece = gameBoard[square]
+        if piece == player:
             blackCoins += 1
-        if square == valueO:
+        elif piece == Othello.getOpponent(player):
             whiteCoins += 1
             
     coinParity = 0
     
-    if player == "Black":
+    if player == valueX:
         coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins))
-    elif player == "White":
+    elif player == valueO:
         coinParity =  100 * ((whiteCoins - blackCoins) / (blackCoins + whiteCoins))
     
     return coinParity
@@ -48,7 +55,7 @@ def mobilityHeuristic(player, gameBoard):
     
     opponent = "White" if player == "Black" else "Black"
     
-    for square in gameBoard:
+    for square in Othello.squares():
         if OthelloGame.checkMove(square, player, gameBoard):
             playerMobility += 1
         elif OthelloGame.checkMove(square, opponent, gameBoard):
