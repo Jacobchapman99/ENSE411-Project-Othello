@@ -69,7 +69,8 @@ def intermediateHeuristic(player, gameBoard):
 
 
 # Corner heuristic 
-
+def cornerHeuristic(player, gameBoard):
+    return
 
 # Stability heuristic
 # stable coins: cannot be flanked 
