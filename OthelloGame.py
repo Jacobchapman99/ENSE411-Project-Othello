@@ -1,5 +1,5 @@
 import Othello
-import OthelloStrategies
+import OthelloStrategies 
 
 def main():
     black, white = getPlayers()
@@ -55,10 +55,10 @@ def getPlayers():
                    # Random AI
                    "random": OthelloStrategies.getRandom,
                    
-                   # MiniMax AI
+                   # MiniMax AI (Max depth k = 3)
                    "minimax-trivial": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.coinParityHeuristic),
                    "minimax-beginner": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.stabilityHeuristic),
-                   "minimax-amateur": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.mobilityHeuristic), # depth of 3 = max. any deeper will cause too high of runtime for it to run
+                   "minimax-amateur": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.mobilityHeuristic), 
                    "minimax-intermediate": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.intermediateHeuristic),
                    
                    # Alpha-Beta AI

@@ -20,5 +20,8 @@ and hard difficulties).
 ## Evaluation Functions
 We implemented 4 different heuristics (static weights, Coin Parity, Stability, Mobility, and a combination of coin parity and mobility) as described in Vaishnavi Sannidhanam and Muthukaruppan Annamalai academic paper "An Analysis of Heuristics in Othello". 
 
+## Random vs Static Sorting
+We have 2 different versions of Othello, one having random squares assigned with various weights, and another having sorted squares where the corners are always considered first, followed by other highly weighted squares. 
 
+Othello.py contains the random squares, while OthelloRefined.py has the sorted squares. 
 
