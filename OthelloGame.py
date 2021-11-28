@@ -2,16 +2,46 @@ import Othello
 import OthelloStrategies 
 
 def main():
-    black, white = getPlayers()
-    gameBoard, score = Othello.playGame(black, white)
-
-    print("final score: ", score)
-    if score > 0:
-        print("Black wins")
-    else:
-        print("White wins")
+    print("Welcome to the game of Othello")
+    print("Do you wish to play a series of games or no? (enter 1 for yes, 0 for no)")
+    ans = int(input("> ")) # gets player input
+    
+    if ans == 1:
+        print("how many games do you wish to play?")
+        numGamesTotal = int(input("> ")) # gets player input
+        blackGamesWon = 0
+        whiteGamesWon = 0
+        numGames = numGamesTotal
+        while numGames > 0:
+            black = OthelloStrategies.getRandom # random
+            white = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.stabilityHeuristic) # minimax beginner
+            gameBoard, score = Othello.playGame(black, white)
+            print("final score: ", score)
+            if score > 0:
+                print("Black wins")
+                blackGamesWon += 1
+            else:
+                print("White wins")
+                whiteGamesWon += 1
+            
+            numGames -= 1
         
-    print(Othello.printGameBoard(gameBoard))
+        print("stats of games:")
+        print("black games won: " + str(blackGamesWon) + " out of " + str(numGamesTotal))
+        print("White games won: " + str(whiteGamesWon) + " out of " + str(numGamesTotal))
+        
+    # normal selection 
+    elif ans == 0:
+        black, white = getPlayers()
+        gameBoard, score = Othello.playGame(black, white)
+
+        print("final score: ", score)
+        if score > 0:
+            print("Black wins")
+        else:
+            print("White wins")
+        
+        print(Othello.printGameBoard(gameBoard))
 
 
 # Checks the players move to see if it is a legal one
@@ -48,7 +78,6 @@ def getOptions(prompt, options):
 
 
 def getPlayers():
-    print("Welcome to the game of Othello")
     
     optionsList = {"human": humanPlayer, 
                    
