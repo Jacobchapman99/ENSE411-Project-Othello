@@ -197,22 +197,6 @@ def playGame(whitePiece, blackPiece):
 
     return gameBoard, score(black, gameBoard)
 
-def playGameRefined(whitePiece, blackPiece):
-    
-    gameBoard = board_init()
-    player = black
-
-    # lamda in python is just a command line function -> lambda args : function code
-    strategy = lambda who : blackPiece if who == black else whitePiece
-
-    while player is not None:
-        move = getMove(strategy(player), player, gameBoard)
-        makeMove(move, player, gameBoard)
-        player = nextPlayer(gameBoard, player)
-
-    return gameBoard, score(black, gameBoard)
-
-
 # gets the next player to make a move. Returns none if no legal moves are available
 def nextPlayer(gameBoard, prevPlayer):
 

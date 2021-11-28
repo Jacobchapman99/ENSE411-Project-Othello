@@ -56,12 +56,14 @@ def getPlayers():
                    "random": OthelloStrategies.getRandom,
                    
                    # MiniMax AI
-                   "minimax-beginner": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.coinParityHeuristic),
+                   "minimax-trivial": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.coinParityHeuristic),
+                   "minimax-beginner": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.stabilityHeuristic),
                    "minimax-amateur": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.mobilityHeuristic), # depth of 3 = max. any deeper will cause too high of runtime for it to run
                    "minimax-intermediate": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.intermediateHeuristic),
                    
                    # Alpha-Beta AI
-                   "alpha-beta-beginner": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.coinParityHeuristic),
+                   "alpha-beta-trivial": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.coinParityHeuristic),
+                   "alpha-beta-beginner": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.stabilityHeuristic),
                    "alpha-beta-amateur": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.mobilityHeuristic),
                    "alpha-beta-intermediate": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.intermediateHeuristic),
                    

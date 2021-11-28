@@ -2,23 +2,6 @@ import Othello
 import OthelloGame
 import random
 
-
-##################
-# 1: Random Search
-##################
-
-# Random Strategy. Easiest form where moves are picked at random
-def getRandom(player, gameBoard):
-    return random.choice(Othello.legalMoves(player, gameBoard))
-
-
-######################################################################
-# 2: Minimax Search
-# description: very affective, however it expands too many nodes. 
-#              The branching factor for Othello is 10, and evaluates
-#              many search trees that can be ignored.
-######################################################################
-
 # base Heuristic 
 def baseHeuristic():
     heuristic = [
@@ -74,7 +57,6 @@ def mobilityHeuristic(player, gameBoard):
     
     if (playerMobility + opponentMobility) != 0:
         return 100 * (playerMobility - opponentMobility) / (playerMobility + opponentMobility)
-    
     else:
         return 0
 
@@ -90,10 +72,48 @@ def intermediateHeuristic(player, gameBoard):
 
 
 # Stability heuristic
+# stable coins: cannot be flanked 
+# unstable coins: can be flanked next turn (i.e moves) 
+# semi-stable coins: can be flanked in the future, but not this turn
+def stabilityHeuristic(player, gameBoard):
     
+    playerMoves = Othello.legalMoves(player, gameBoard) # unstable coins (given a -1 for each coin that can be flanked)
+    opponentMoves = Othello.legalMoves(Othello.getOpponent(player), gameBoard)
+    playerPieces = 0
+    opponentPieces = 0
+    
+    # check each square and add 1
+    for square in Othello.squares():
+        piece = gameBoard[square]
+        if piece == player:
+            playerPieces += 1
+        elif piece == Othello.getOpponent(player):
+            opponentPieces += 1
+            
+        
+    playerStability = playerPieces - len(playerMoves) 
+    opponentStability = opponentPieces - len(opponentMoves)
+    
+    if((playerStability + opponentStability) != 0):
+        return 100 * ((playerStability - opponentStability) / (playerStability + opponentStability))
+    else:
+        return 0
+    
+##################
+# 1: Random Search
+##################
+
+# Random Strategy. Easiest form where moves are picked at random
+def getRandom(player, gameBoard):
+    return random.choice(Othello.legalMoves(player, gameBoard))
 
 
-
+######################################################################
+# 2: Minimax Search
+# description: very affective, however it expands too many nodes. 
+#              The branching factor for Othello is 10, and evaluates
+#              many search trees that can be ignored.
+######################################################################
 
 # find the best legal move for the player by searching to a specific depth
 # returns a tuple (move, minimum score)
@@ -178,32 +198,8 @@ def alphaBetaSearcher(depth, evaluate):
 ######################  
 # 4: Expectimax Search
 ######################
-
-avgValue = 0
 def expectimax(player, gameBoard, depth, evaluate): # Needs to be implemented
-
-    # define the value of the gameBoard to be opposite of its value for our opponent. recursively goes through minimax for the opponent
-    def value(gameBoard):
-        return -minimax(Othello.getOpponent(player), gameBoard, depth - 1, evaluate)[0]
-
-    # if the depth is 0, dont look at any more potential moves, simply determine the value of the gameBoard for this player
-    if depth == 0:
-        return evaluate(player, gameBoard), None
-    
-    moves = Othello.legalMoves(player, gameBoard) 
-    legalmoves = Othello.anyLegalMove(Othello.getOpponent(player), gameBoard)
-
-    # if player has no legal moves, then the game is over, so return the final score. Or there has to be a pass of a turn, so determine score of this gameBoard
-    if not moves: 
-        if not legalmoves: 
-            return finalValue(player, gameBoard), None
-        return value(gameBoard), None 
-    
-    # return average. DOESNT WORK 
-    return sum((value(Othello.makeMove(move, player, list(gameBoard))), move) for move in moves) / len(moves)
-
-maxValue = sum(map(abs, baseHeuristic()))
-minValue = -maxValue
+    return 0
     
 
 def expectimaxSearcher(depth, evaluate):

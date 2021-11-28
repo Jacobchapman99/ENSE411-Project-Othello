@@ -3,22 +3,6 @@ import OthelloGame
 import random
 
 
-##################
-# 1: Random Search
-##################
-
-# Random Strategy. Easiest form where moves are picked at random
-def getRandom(player, gameBoard):
-    return random.choice(OthelloRefined.legalMovesRefined(player, gameBoard))
-
-
-######################################################################
-# 2: Minimax Search
-# description: very affective, however it expands too many nodes. 
-#              The branching factor for Othello is 10, and evaluates
-#              many search trees that can be ignored.
-######################################################################
-
 # base Heuristic 
 def baseHeuristic():
     heuristic = [
@@ -90,9 +74,49 @@ def intermediateHeuristic(player, gameBoard):
 
 
 # Stability heuristic
+# stable coins: cannot be flanked 
+# unstable coins: can be flanked next turn (i.e moves) 
+# semi-stable coins: can be flanked in the future, but not this turn
+def stabilityHeuristic(player, gameBoard):
     
+    playerMoves = OthelloRefined.legalMoves(player, gameBoard) # unstable coins (given a -1 for each coin that can be flanked)
+    opponentMoves = OthelloRefined.legalMoves(OthelloRefined.getOpponent(player), gameBoard)
+    playerPieces = 0
+    opponentPieces = 0
+    
+    # check each square and add 1
+    for square in OthelloRefined.sortedSquares():
+        piece = gameBoard[square]
+        if piece == player:
+            playerPieces += 1
+        elif piece == OthelloRefined.getOpponent(player):
+            opponentPieces += 1
+            
+        
+    playerStability = playerPieces - len(playerMoves) 
+    opponentStability = opponentPieces - len(opponentMoves)
+    
+    if((playerStability + opponentStability) != 0):
+        return 100 * ((playerStability - opponentStability) / (playerStability + opponentStability))
+    else:
+        return 0
+    
+    
+##################
+# 1: Random Search
+##################
+
+# Random Strategy. Easiest form where moves are picked at random
+def getRandom(player, gameBoard):
+    return random.choice(OthelloRefined.legalMovesRefined(player, gameBoard))
 
 
+######################################################################
+# 2: Minimax Search
+# description: very affective, however it expands too many nodes. 
+#              The branching factor for Othello is 10, and evaluates
+#              many search trees that can be ignored.
+######################################################################
 
 
 # find the best legal move for the player by searching to a specific depth
