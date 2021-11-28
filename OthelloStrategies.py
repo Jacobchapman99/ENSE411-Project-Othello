@@ -30,15 +30,14 @@ def coinParityHeuristic(player, gameBoard):
             blackCoins += 1
         if square == valueO:
             whiteCoins += 1
-
+            
     coinParity = 0
-
+    
     if player == "Black":
         coinParity = 100 * ((blackCoins - whiteCoins) / (blackCoins + whiteCoins))
-
-    else:
-        coinParity = 100 * ((whiteCoins - blackCoins) / (blackCoins + whiteCoins))
-        
+    elif player == "White":
+        coinParity =  100 * ((whiteCoins - blackCoins) / (blackCoins + whiteCoins))
+    
     return coinParity
 
 

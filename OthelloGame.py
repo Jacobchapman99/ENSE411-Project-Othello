@@ -2,46 +2,16 @@ import Othello
 import OthelloStrategies 
 
 def main():
-    print("Welcome to the game of Othello")
-    print("Do you wish to play a series of games or no? (enter 1 for yes, 0 for no)")
-    ans = int(input("> ")) # gets player input
-    
-    if ans == 1:
-        print("how many games do you wish to play?")
-        numGamesTotal = int(input("> ")) # gets player input
-        blackGamesWon = 0
-        whiteGamesWon = 0
-        numGames = numGamesTotal
-        while numGames > 0:
-            black = OthelloStrategies.getRandom # random
-            white = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.stabilityHeuristic) # minimax beginner
-            gameBoard, score = Othello.playGame(black, white)
-            print("final score: ", score)
-            if score > 0:
-                print("Black wins")
-                blackGamesWon += 1
-            else:
-                print("White wins")
-                whiteGamesWon += 1
-            
-            numGames -= 1
-        
-        print("stats of games:")
-        print("black games won: " + str(blackGamesWon) + " out of " + str(numGamesTotal))
-        print("White games won: " + str(whiteGamesWon) + " out of " + str(numGamesTotal))
-        
-    # normal selection 
-    elif ans == 0:
-        black, white = getPlayers()
-        gameBoard, score = Othello.playGame(black, white)
+    black, white = getPlayers()
+    gameBoard, score = Othello.playGame(black, white)
 
-        print("final score: ", score)
-        if score > 0:
-            print("Black wins")
-        else:
-            print("White wins")
-        
-        print(Othello.printGameBoard(gameBoard))
+    print("final score: ", score)
+    if score > 0:
+        print("Black wins")
+    else:
+        print("White wins")
+    
+    print(Othello.printGameBoard(gameBoard))
 
 
 # Checks the players move to see if it is a legal one
@@ -92,7 +62,7 @@ def getPlayers():
                    
                    # Alpha-Beta AI
                    "alpha-beta-trivial": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.coinParityHeuristic),
-                   "alpha-beta-beginner": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.stabilityHeuristic),
+                   "alpha-beta-beginner": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.stabilityHeuristic),
                    "alpha-beta-amateur": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.mobilityHeuristic),
                    "alpha-beta-intermediate": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.intermediateHeuristic),
                    

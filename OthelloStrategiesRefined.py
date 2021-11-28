@@ -79,8 +79,8 @@ def intermediateHeuristic(player, gameBoard):
 # semi-stable coins: can be flanked in the future, but not this turn
 def stabilityHeuristic(player, gameBoard):
     
-    playerMoves = OthelloRefined.legalMoves(player, gameBoard) # unstable coins (given a -1 for each coin that can be flanked)
-    opponentMoves = OthelloRefined.legalMoves(OthelloRefined.getOpponent(player), gameBoard)
+    playerMoves = OthelloRefined.legalMovesRefined(player, gameBoard) # unstable coins (given a -1 for each coin that can be flanked)
+    opponentMoves = OthelloRefined.legalMovesRefined(OthelloRefined.getOpponent(player), gameBoard)
     playerPieces = 0
     opponentPieces = 0
     

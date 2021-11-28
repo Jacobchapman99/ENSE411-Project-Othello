@@ -3,45 +3,17 @@ import OthelloStrategiesRefined
 
 def main():
     print("Welcome to the game of Othello")
-    print("Do you wish to play a series of games or no? (enter 1 for yes, 0 for no)")
-    ans = int(input("> ")) # gets player input
     
-    if ans == 1:
-        print("how many games do you wish to play?")
-        numGamesTotal = int(input("> ")) # gets player input
-        blackGamesWon = 0
-        whiteGamesWon = 0
-        numGames = numGamesTotal
-        while numGames > 0:
-            black = OthelloStrategiesRefined.getRandom # random
-            white = OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.stabilityHeuristic) # minimax beginner
-            gameBoard, score = OthelloRefined.playGame(black, white)
-            print("final score: ", score)
-            if score > 0:
-                print("Black wins")
-                blackGamesWon += 1
-            else:
-                print("White wins")
-                whiteGamesWon += 1
-            
-            numGames -= 1
-        
-        print("stats of games:")
-        print("black games won: " + str(blackGamesWon) + " out of " + str(numGamesTotal))
-        print("White games won: " + str(whiteGamesWon) + " out of " + str(numGamesTotal))
-        
-    # normal selection 
-    elif ans == 0:
-        black, white = getPlayers()
-        gameBoard, score = OthelloRefined.playGame(black, white)
+    black, white = getPlayers()
+    gameBoard, score = OthelloRefined.playGame(black, white)
 
-        print("final score: ", score)
-        if score > 0:
-            print("Black wins")
-        else:
-            print("White wins")
-        
-        print(OthelloRefined.printGameBoard(gameBoard))
+    print("final score: ", score)
+    if score > 0:
+        print("Black wins")
+    else:
+        print("White wins")
+    
+    print(OthelloRefined.printGameBoard(gameBoard))
 
 
 # Checks the players move to see if it is a legal one
@@ -86,16 +58,19 @@ def getPlayers():
                    "random": OthelloStrategiesRefined.getRandom,
                    
                    # MiniMax AI
-                   "minimax-beginner": OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.coinParityHeuristic),
+                   "minimax-trivial": OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.coinParityHeuristic),
+                   "minimax-beginner": OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.stabilityHeuristic),
                    "minimax-amateur": OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.mobilityHeuristic), # depth of 3 = max. any deeper will cause too high of runtime for it to run
                    "minimax-intermediate": OthelloStrategiesRefined.minimaxSearcher(3, OthelloStrategiesRefined.intermediateHeuristic),
                    
                    # Alpha-Beta AI
-                   "alpha-beta-beginner": OthelloStrategiesRefined.alphaBetaSearcher(2, OthelloStrategiesRefined.coinParityHeuristic),
+                   "alpha-beta-trivial": OthelloStrategiesRefined.alphaBetaSearcher(2, OthelloStrategiesRefined.coinParityHeuristic),
+                   "alpha-beta-beginner": OthelloStrategiesRefined.alphaBetaSearcher(2, OthelloStrategiesRefined.stabilityHeuristic),
                    "alpha-beta-amateur": OthelloStrategiesRefined.alphaBetaSearcher(2, OthelloStrategiesRefined.mobilityHeuristic),
                    "alpha-beta-intermediate": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.intermediateHeuristic)
                    
                    # Expectimax
+                   
                    }
     
     # Instantiates both players. They could both be AI's, or both humans, or one human and one AI
