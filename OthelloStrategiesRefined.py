@@ -148,6 +148,7 @@ def minimaxSearcher(depth, evaluate):
 # find the best legal move for the player by searching to a specific depth however uses alpha and beta pruning technique
 def alphaBeta(player, gameBoard, alpha, beta, depth, evaluate):
 
+    # 
     if depth == 0:
         return (evaluate(player, gameBoard), None)
     
@@ -191,8 +192,6 @@ def alphaBetaSearcher(depth, evaluate):
 # 4: Expectimax Search
 ######################
 def expectimax(player, gameBoard, depth, evaluate): # Needs to be implemented
-    
-    
     return 0
 
 def expectimaxSearcher(depth, evaluate):
