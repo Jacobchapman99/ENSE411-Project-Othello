@@ -17,5 +17,8 @@ Intelligence"), we used random, MiniMax, and Alpha-Beta pruning strategies for t
 The computer players can use optimal heuristics, or sub-par heurstics (respective to easy, medium,
 and hard difficulties). 
 
+## Evaluation Functions
+We implemented 4 different heuristics (static weights, Coin Parity, Stability, Mobility, and a combination of coin parity and mobility) as described in Vaishnavi Sannidhanam and Muthukaruppan Annamalai academic paper "An Analysis of Heuristics in Othello". 
+
 
 
