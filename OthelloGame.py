@@ -124,12 +124,18 @@ def getPlayers():
                    "minimax-beginner": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.stabilityHeuristic),
                    "minimax-amateur": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.mobilityHeuristic), 
                    "minimax-intermediate": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.intermediateHeuristic),
+                   "minimax-greedy": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.cornerHeuristic),
+                   "minimax-expert": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.expertHeuristic),
+                   "minimax-master": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.masterHeuristic),
                    
                    # Alpha-Beta AI
                    "alpha-beta-trivial": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.coinParityHeuristic),
                    "alpha-beta-beginner": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.stabilityHeuristic),
                    "alpha-beta-amateur": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.mobilityHeuristic),
                    "alpha-beta-intermediate": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.intermediateHeuristic),
+                   "alpha-beta-greedy": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.cornerHeuristic),
+                   "alpha-beta-expert": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.expertHeuristic),
+                   "alpha-beta-master": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.masterHeuristic),
                    
                    # Expectimax
                    # "expectimax-beginner": OthelloStrategies.expectimaxSearcher(3, OthelloStrategies.coinParityHeuristic)

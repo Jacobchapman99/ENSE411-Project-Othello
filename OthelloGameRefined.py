@@ -55,19 +55,26 @@ def getPlayers():
     optionsList = {"human": humanPlayer, 
                    
                    # Random AI
+# Random AI
                    "random": OthelloStrategiesRefined.getRandom,
                    
-                   # MiniMax AI
-                   "minimax-trivial": OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.coinParityHeuristic),
-                   "minimax-beginner": OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.stabilityHeuristic),
-                   "minimax-amateur": OthelloStrategiesRefined.minimaxSearcher(2, OthelloStrategiesRefined.mobilityHeuristic), # depth of 3 = max. any deeper will cause too high of runtime for it to run
+                   # MiniMax AI (Max depth k = 3)
+                   "minimax-trivial": OthelloStrategiesRefined.minimaxSearcher(3, OthelloStrategiesRefined.coinParityHeuristic),
+                   "minimax-beginner": OthelloStrategiesRefined.minimaxSearcher(3, OthelloStrategiesRefined.stabilityHeuristic),
+                   "minimax-amateur": OthelloStrategiesRefined.minimaxSearcher(3, OthelloStrategiesRefined.mobilityHeuristic), 
                    "minimax-intermediate": OthelloStrategiesRefined.minimaxSearcher(3, OthelloStrategiesRefined.intermediateHeuristic),
+                   "minimax-greedy": OthelloStrategiesRefined.minimaxSearcher(3, OthelloStrategiesRefined.cornerHeuristic),
+                   "minimax-expert": OthelloStrategiesRefined.minimaxSearcher(3, OthelloStrategiesRefined.expertHeuristic),
+                   "minimax-master": OthelloStrategiesRefined.minimaxSearcher(3, OthelloStrategiesRefined.masterHeuristic),
                    
                    # Alpha-Beta AI
-                   "alpha-beta-trivial": OthelloStrategiesRefined.alphaBetaSearcher(2, OthelloStrategiesRefined.coinParityHeuristic),
-                   "alpha-beta-beginner": OthelloStrategiesRefined.alphaBetaSearcher(2, OthelloStrategiesRefined.stabilityHeuristic),
-                   "alpha-beta-amateur": OthelloStrategiesRefined.alphaBetaSearcher(2, OthelloStrategiesRefined.mobilityHeuristic),
-                   "alpha-beta-intermediate": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.intermediateHeuristic)
+                   "alpha-beta-trivial": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.coinParityHeuristic),
+                   "alpha-beta-beginner": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.stabilityHeuristic),
+                   "alpha-beta-amateur": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.mobilityHeuristic),
+                   "alpha-beta-intermediate": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.intermediateHeuristic),
+                   "alpha-beta-greedy": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.cornerHeuristic),
+                   "alpha-beta-expert": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.expertHeuristic),
+                   "alpha-beta-master": OthelloStrategiesRefined.alphaBetaSearcher(3, OthelloStrategiesRefined.masterHeuristic),# Random AI
                    
                    # Expectimax
                    

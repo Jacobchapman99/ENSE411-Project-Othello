@@ -68,8 +68,39 @@ def intermediateHeuristic(player, gameBoard):
 # Could possibly extend with with POTENTIAL MOBILITY (i.e. moves that may become legal after the opponent's next move)
 # Maybe a refined breadth-first search could be applicable here?
 
+def expertHeuristic(player, gameBoard):
+    return intermediateHeuristic(player, gameBoard) + cornerHeuristic(player, gameBoard)
+
+def masterHeuristic(player, gameBoard):
+    return expertHeuristic(player, gameBoard) + stabilityHeuristic(player, gameBoard)
 
 # Corner heuristic 
+def cornerHeuristic(player, gameBoard):
+
+    playerCornersHeld = 0
+    opponentCornersHeld = 0
+    playerCornersPossible = 0
+    opponentCornersPossible = 0
+
+    for corner in OthelloRefined.corners():
+        piece = gameBoard[corner]
+        if piece == player:
+            playerCornersHeld += 1
+        elif piece == OthelloRefined.getOpponent(player):
+            opponentCornersHeld += 1
+        elif corner in OthelloRefined.legalMovesRefined(player, gameBoard):
+            playerCornersPossible += 1
+        elif corner in OthelloRefined.legalMovesRefined(OthelloRefined.getOpponent(player), gameBoard):
+            opponentCornersPossible += 1
+
+    playerCornerHeuristic = (2 * playerCornersHeld) + (1 * playerCornersPossible)
+    opponentCornerHeuristic = (2 * opponentCornersHeld) + (1 * opponentCornersPossible)
+
+    if (playerCornerHeuristic + opponentCornerHeuristic) != 0:
+        return 100 * ((playerCornerHeuristic - opponentCornerHeuristic) / (playerCornerHeuristic + opponentCornerHeuristic))
+    
+    else:
+        return 0
 
 
 # Stability heuristic
