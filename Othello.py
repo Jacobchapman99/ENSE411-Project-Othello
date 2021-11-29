@@ -26,6 +26,9 @@ directions = (north, northEast, east, southEast, south, southWest, west, northWe
 def squares():
     return [i for i in range(11, 89) if 1 <= (i % 10) <= 8]
 
+def corners():
+    return [11, 18, 81, 88]
+
 def board_init():
 
     gameBoard = [outerTile] * 100
