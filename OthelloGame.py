@@ -17,25 +17,29 @@ def main():
         whiteCoinsCaptured = 0
         
         while numGames > 0:
-            black = OthelloStrategies.getRandom
+            #black = OthelloStrategies.getRandom
+            
             #black = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.coinParityHeuristic)
             #black = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.stabilityHeuristic)
             #black = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.mobilityHeuristic)
             #black = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.intermediateHeuristic)
+            
             #black = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.coinParityHeuristic)
             #black = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.stabilityHeuristic)
             #black = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.mobilityHeuristic)
-            #black = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.intermediateHeuristic)
+            black = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.intermediateHeuristic)
             
-            white = OthelloStrategies.getRandom
+            #white = OthelloStrategies.getRandom
             #white = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.coinParityHeuristic)
             #white = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.stabilityHeuristic)
             #white = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.mobilityHeuristic)
             #white = OthelloStrategies.minimaxSearcher(2, OthelloStrategies.intermediateHeuristic)
+            
             #white = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.coinParityHeuristic)
             #white = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.stabilityHeuristic)
             #white = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.mobilityHeuristic)
-            #white = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.intermediateHeuristic)
+            white = OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.intermediateHeuristic)
+            
             gameBoard, score = Othello.playGame(black, white)
 
             for square in Othello.squares():
