@@ -1,5 +1,6 @@
 
-
+import OthelloStrategies 
+import random
 ####################################
 #
 # Part 0: Initilization of Othello
@@ -182,15 +183,23 @@ def anyLegalMove(player, gameBoard):
 
 
 # Plays the game of Othello and returns the final board and score
-def playGame(whitePiece, blackPiece):
+def playGame(blackStrategy, whiteStrategy):
 
     gameBoard = board_init()
     player = black
 
     # lamda in python is just a command line function -> lambda args : function code
-    strategy = lambda who : blackPiece if who == black else whitePiece
-
+    strategy = lambda who : blackStrategy if who == black else whiteStrategy
+    numMoves = 4
     while player is not None:
+        # implement 4 random moves to start, then go to the strategy
+        # FOR TESTING N GAMES
+        while numMoves > 0:
+            move = random.choice(legalMoves(player, gameBoard))
+            makeMove(move, player, gameBoard)
+            player = nextPlayer(gameBoard, player)
+            numMoves -= 1
+        
         move = getMove(strategy(player), player, gameBoard)
         makeMove(move, player, gameBoard)
         player = nextPlayer(gameBoard, player)
