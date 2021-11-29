@@ -4,7 +4,7 @@ import OthelloStrategies
 def main():
     black, white = getPlayers()
     gameBoard, score = Othello.playGame(black, white)
-
+    
     print("final score: ", score)
     if score > 0:
         print("Black wins")
@@ -55,15 +55,15 @@ def getPlayers():
                    "random": OthelloStrategies.getRandom,
                    
                    # MiniMax AI (Max depth k = 3)
-                   "minimax-trivial": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.coinParityHeuristic),
-                   "minimax-beginner": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.stabilityHeuristic),
-                   "minimax-amateur": OthelloStrategies.minimaxSearcher(2, OthelloStrategies.mobilityHeuristic), 
+                   "minimax-trivial": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.coinParityHeuristic),
+                   "minimax-beginner": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.stabilityHeuristic),
+                   "minimax-amateur": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.mobilityHeuristic), 
                    "minimax-intermediate": OthelloStrategies.minimaxSearcher(3, OthelloStrategies.intermediateHeuristic),
                    
                    # Alpha-Beta AI
-                   "alpha-beta-trivial": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.coinParityHeuristic),
-                   "alpha-beta-beginner": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.stabilityHeuristic),
-                   "alpha-beta-amateur": OthelloStrategies.alphaBetaSearcher(2, OthelloStrategies.mobilityHeuristic),
+                   "alpha-beta-trivial": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.coinParityHeuristic),
+                   "alpha-beta-beginner": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.stabilityHeuristic),
+                   "alpha-beta-amateur": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.mobilityHeuristic),
                    "alpha-beta-intermediate": OthelloStrategies.alphaBetaSearcher(3, OthelloStrategies.intermediateHeuristic),
                    
                    # Expectimax
@@ -76,7 +76,7 @@ def getPlayers():
     black = getOptions("BLACK: choose an option", optionsList) 
     white = getOptions("WHITE: choose an option", optionsList)
 
-    return black, white
+    return white, black
 
 
 # Runs the Othello game

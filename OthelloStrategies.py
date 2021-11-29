@@ -97,7 +97,6 @@ def stabilityHeuristic(player, gameBoard):
         elif piece == Othello.getOpponent(player):
             opponentPieces += 1
             
-        
     playerStability = playerPieces - len(playerMoves) 
     opponentStability = opponentPieces - len(opponentMoves)
     
@@ -125,7 +124,6 @@ def getRandom(player, gameBoard):
 # find the best legal move for the player by searching to a specific depth
 # returns a tuple (move, minimum score)
 def minimax(player, gameBoard, depth, evaluate):
-
     # define the value of the gameBoard to be opposite of its value for our opponent. recursively goes through minimax for the opponent
     def value(gameBoard):
         return -minimax(Othello.getOpponent(player), gameBoard, depth - 1, evaluate)[0]
@@ -134,7 +132,7 @@ def minimax(player, gameBoard, depth, evaluate):
     if depth == 0:
         return evaluate(player, gameBoard), None
 
-    moves = Othello.legalMoves(player, gameBoard) 
+    moves = Othello.legalMoves(player, gameBoard)
     legalmoves = Othello.anyLegalMove(Othello.getOpponent(player), gameBoard)
 
     # if player has no legal moves, then the game is over, so return the final score. Or there has to be a pass of a turn, so determine score of this gameBoard
